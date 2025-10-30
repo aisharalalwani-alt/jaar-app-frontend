@@ -1,42 +1,31 @@
 import { useEffect, useState } from "react";
-import axios from "../services/api";
+import axios from "../../services/api";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get("/posts/")
-      .then(res => setPosts(res.data))
-      .catch(err => console.error(err));
-
-    axios.get("/events/")
-      .then(res => setEvents(res.data))
-      .catch(err => console.error(err));
+    const fetchData = async () => {
+      try {
+        const postsRes = await axios.get("/posts/");
+        setPosts(postsRes.data);
+        const eventsRes = await axios.get("/events/");
+        setEvents(eventsRes.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
     <div>
       <h1>Community Feed</h1>
-      <section>
-        <h2>Posts</h2>
-        {posts.map(post => (
-          <div key={post.id}>
-            <h3>{post.title} - by {post.user}</h3>
-            <p>{post.content}</p>
-          </div>
-        ))}
-      </section>
-
-      <section>
-        <h2>Events</h2>
-        {events.map(event => (
-          <div key={event.id}>
-            <h3>{event.title} - by {event.created_by}</h3>
-            <p>{event.description}</p>
-          </div>
-        ))}
-      </section>
+      <h2>Posts</h2>
+      {posts.map(post => <div key={post.id}>{post.title}</div>)}
+      <h2>Events</h2>
+      {events.map(event => <div key={event.id}>{event.title}</div>)}
     </div>
   );
 }

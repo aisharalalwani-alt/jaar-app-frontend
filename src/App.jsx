@@ -1,19 +1,25 @@
+// src/App.jsx
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import PostsList from "./components/PostsList";
-import PostCreate from "./components/PostCreate";
-import EventsList from "./components/EventsList";
-import EventCreate from "./components/EventCreate";
-import VolunteersList from "./components/VolunteersList";
-import UserProfile from "./components/UserProfile";
-import NeighborsList from "./components/NeighborsList";
-import SignupForm from "./components/SignupForm";
-import LoginForm from "./components/LoginForm";
-import Logout from "./components/Logout";
+import NavBar from "./Components/NavBar/NavBar.jsx";
+
+ 
+import HomePage from "./Components/HomePage/HomePage.jsx";
+import PostsList from "./Components/PostsList/PostsList.jsx";
+import PostCreate from "./Components/PostCreate/PostCreate.jsx";
+import EventsList from "./Components/EventsList/EventsList.jsx";
+import EventCreate from "./Components/EventCreate/EventCreate.jsx";
+import VolunteersList from "./Components/VolunteersList/VolunteersList.jsx";
+import UserProfile from "./Components/UserProfile/UserProfile.jsx";
+import NeighborsList from "./Components/NeighborsList/NeighborsList.jsx";
+import SignupForm from "./Components/SignupForm/SignupForm.jsx";
+import LoginForm from "./Components/LoginForm/LoginForm.jsx";
+import Logout from "./Components/Logout/Logout.jsx";
 
 function App() {
   return (
     <Router>
+      <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/posts" element={<PostsList />} />
