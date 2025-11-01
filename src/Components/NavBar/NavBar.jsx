@@ -19,6 +19,13 @@ function NavBar() {
       {/* Neighbors */}
       <Link to="/neighbors">Neighbors List</Link> | 
       <Link to="/neighbors/new">Add Neighbor</Link>
+
+      
+      {/* Auth */}
+      <Link to="/signup">Sign Up</Link> |
+      <Link to="/login">Login</Link> |
+      <Link to="/logout">Logout</Link> |
+      <Link to="/profile">Profile</Link>
     </nav>
   );
 }
