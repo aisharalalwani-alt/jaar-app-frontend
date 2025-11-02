@@ -1,6 +1,6 @@
- import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupUser } from "../../services/api";
+import api from "../../services/api";
 
 function SignupForm() {
   const [username, setUsername] = useState("");
@@ -11,36 +11,60 @@ function SignupForm() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await signupUser(username, email, password);
-      alert("Signup successful!");
+      const res = await api.post("signup/", {
+        username,
+        email,
+        password,
+      });
+
+      alert("Signup successful! Redirecting to your profile...");
+      // Save tokens (optional if login happens separately)
       navigate("/login");
     } catch (err) {
-      alert("Signup failed!");
-      console.error(err.response?.data || err.message);
+      console.error("Signup failed:", err);
+      alert("Signup failed. Try again.");
     }
   };
 
   return (
-    <form onSubmit={handleSignup}>
+    <div style={{ maxWidth: "400px", margin: "auto", textAlign: "center" }}>
       <h2>Signup</h2>
-      <input
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Signup</button>
-    </form>
+      <form onSubmit={handleSignup}>
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          required
+          style={{ display: "block", margin: "10px auto", width: "100%" }}
+        />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email (optional)"
+          style={{ display: "block", margin: "10px auto", width: "100%" }}
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+          style={{ display: "block", margin: "10px auto", width: "100%" }}
+        />
+        <button
+          type="submit"
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Signup
+        </button>
+      </form>
+    </div>
   );
 }
 
