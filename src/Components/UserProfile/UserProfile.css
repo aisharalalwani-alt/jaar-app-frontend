@@ -1,0 +1,172 @@
+ 
+
+.user-profile {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  color: #1e1e1e;
+}
+
+/* Profile Card */
+.profile-card {
+  background-color: #f9f9fb;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-card img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #8b0000; /* dark red */
+  margin-bottom: 15px;
+}
+
+.profile-card h2 {
+  color: #8b0000;
+  margin-bottom: 5px;
+}
+
+.profile-card p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.profile-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.profile-buttons button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-buttons .edit-btn {
+  background-color: #8b0000;
+  color: white;
+}
+
+.profile-buttons .save-btn {
+  background-color: #5b84b1; /* light bluish-gray */
+  color: white;
+}
+
+.profile-buttons .cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.profile-buttons button:hover {
+  transform: scale(1.05);
+}
+
+/* Posts & Events Sections */
+.section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #eee;
+}
+
+.section h3 {
+  border-bottom: 2px solid #8b0000;
+  padding-bottom: 6px;
+  color: #8b0000;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+/* Cards inside Posts/Events */
+.item-card {
+  background-color: #f4f6f8;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-left: 5px solid #5b84b1;
+}
+
+.item-card h4 {
+  margin: 0;
+  color: #333;
+}
+
+.item-card p {
+  color: #555;
+  margin-top: 6px;
+}
+
+.item-card:hover {
+  background-color: #e8eef2;
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: black;
+}

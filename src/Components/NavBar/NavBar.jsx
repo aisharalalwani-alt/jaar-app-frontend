@@ -18,7 +18,7 @@ function NavBar() {
 
       {/* Neighbors */}
       <Link to="/neighbors">Neighbors List</Link> | 
-      <Link to="/neighbors/new">Add Neighbor</Link>
+      
 
       
       {/* Auth */}
