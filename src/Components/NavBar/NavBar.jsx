@@ -13,9 +13,8 @@ function NavBar() {
       <Link to="/events/new">Add Event</Link> |
 
       {/* Volunteers */}
-      <Link to="/volunteers">Volunteers List</Link> | 
-      <Link to="/volunteers/new">Add Volunteer</Link> |
-
+      <Link to="/volunteers">top Volunteersnk </Link> |
+ 
       {/* Neighbors */}
       <Link to="/neighbors">Neighbors List</Link> | 
       

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function EventList() {
   const [events, setEvents] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEvents();
@@ -11,59 +14,54 @@ function EventList() {
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem("access");
+      if (!token) {
+        setError("No access token found. Please log in.");
+        return;
+      }
+
       const response = await axios.get("http://127.0.0.1:8000/api/events/", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setEvents(response.data);
+
+      if (Array.isArray(response.data)) {
+        setEvents(response.data);
+        setError(null);
+      } else {
+        setEvents([]);
+        setError("Unexpected response format.");
+      }
     } catch (error) {
       console.error("Error fetching events:", error);
+      setError("Failed to load events.");
     }
   };
 
-  const handleJoin = async (eventId) => {
-    try {
-      const token = localStorage.getItem("access");
-      await axios.post(
-        `http://127.0.0.1:8000/api/join-event/${eventId}/`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      alert("You joined the event successfully!");
-      fetchEvents();
-    } catch (error) {
-      console.error("Error joining event:", error);
-      alert("Failed to join event.");
-    }
+  const handleEventClick = (eventId) => {
+    navigate(`/events/${eventId}`);
   };
 
   return (
     <div className="container mx-auto p-6">
       <h2 className="text-2xl font-semibold mb-4 text-gray-800">All Events</h2>
 
+      {error && <p className="text-red-600 mb-4">{error}</p>}
+
       {events.length === 0 ? (
-        <p>No events found.</p>
+        <p className="text-gray-600">No events found.</p>
       ) : (
         <ul className="space-y-4">
           {events.map((event) => (
             <li
               key={event.id}
-              className="border rounded-xl p-4 shadow-md bg-white"
+              onClick={() => handleEventClick(event.id)}
+              className="border rounded-xl p-4 shadow-md bg-white hover:shadow-lg hover:bg-gray-50 transition cursor-pointer"
             >
               <h3 className="text-xl font-bold text-blue-600">{event.title}</h3>
               <p className="text-gray-700">{event.description}</p>
               <p className="text-sm text-gray-500">
-                📅 Date: {new Date(event.date).toLocaleString()} | 📍 Location:{" "}
+                📅 {new Date(event.date).toLocaleString()} | 📍{" "}
                 {event.location}
               </p>
-
-              <button
-                onClick={() => handleJoin(event.id)}
-                className="mt-3 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-              >
-                Join Event
-              </button>
             </li>
           ))}
         </ul>
@@ -73,3 +71,4 @@ function EventList() {
 }
 
 export default EventList;
+
