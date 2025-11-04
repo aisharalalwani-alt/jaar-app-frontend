@@ -16,6 +16,7 @@ import SignupForm from "./Components/SignupForm/SignupForm.jsx";
 import LoginForm from "./Components/LoginForm/LoginForm.jsx";
 import Logout from "./Components/Logout/Logout.jsx";
 import EventDetail from "./Components/EventDetail/EventDetail.jsx";
+import NeighborDetail from "./Components/NeighborDetail/NeighborDetail.jsx";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/volunteers" element={<VolunteersList />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/neighbors" element={<NeighborsList />} />
+        <Route path="/neighbors/:id" element={<NeighborDetail />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/logout" element={<Logout />} />
