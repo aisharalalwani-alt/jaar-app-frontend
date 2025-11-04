@@ -1,5 +1,6 @@
 // src/App.jsx
 import React from "react";
+import "font-awesome/css/font-awesome.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar.jsx";
 

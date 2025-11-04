@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import "./PostCreate.css";
 
 function PostCreate() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [popup, setPopup] = useState({ show: false, success: true });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,36 +27,89 @@ function PostCreate() {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Post created successfully!");
-      navigate("/posts");
+      setPopup({ show: true, success: true });
     } catch (err) {
       console.error("Error creating post:", err);
-      alert("Failed to create post");
+      setPopup({ show: true, success: false });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add New Post</h2>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-        required
-      />
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Content"
-        required
-      />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImage(e.target.files[0])}
-      />
-      <button type="submit">Create Post</button>
-    </form>
+    <div className="post-create-container">
+      <h2>
+        <i className="fa fa-comments"></i> Would you like to tell your neighbors something?
+      </h2>
+
+      <form onSubmit={handleSubmit} className="post-form">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Post title"
+          required
+        />
+
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Write your post content..."
+          required
+        />
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            setImage(file);
+            setPreview(URL.createObjectURL(file));
+          }}
+        />
+
+        {preview && (
+          <div className="preview-container">
+            <img src={preview} alt="preview" />
+          </div>
+        )}
+
+        <button type="submit" className="submit-btn">
+          <i className="fa fa-paper-plane"></i> Publish
+        </button>
+      </form>
+
+      {popup.show && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            {popup.success ? (
+              <>
+                <h3 className="popup-success">
+                  <i className="fa fa-check-circle"></i> Post Published Successfully!
+                </h3>
+                <p>Your post has been added successfully.</p>
+                <button
+                  className="popup-btn"
+                  onClick={() => navigate("/posts")}
+                >
+                  Go to Posts List
+                </button>
+              </>
+            ) : (
+              <>
+                <h3 className="popup-error">
+                  <i className="fa fa-times-circle"></i> Failed to Create Post
+                </h3>
+                <p>Please check your connection or try again.</p>
+                <button
+                  className="popup-btn"
+                  onClick={() => setPopup({ show: false, success: true })}
+                >
+                  Close
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

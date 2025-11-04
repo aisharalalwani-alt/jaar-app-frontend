@@ -5,9 +5,8 @@ function NavBar() {
   return (
     <nav style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
       {/* Posts */}
-      <Link to="/posts">Posts List</Link> | 
-      <Link to="/posts/new">Add Post</Link> |
-
+      <Link to="/posts">Posts  </Link> | 
+ 
       {/* Events */}
       <Link to="/events">Events List</Link> | 
       <Link to="/events/new">Add Event</Link> |
