@@ -8,8 +8,8 @@ function NavBar() {
       <Link to="/posts">Posts  </Link> | 
  
       {/* Events */}
-      <Link to="/events">Events List</Link> | 
-      <Link to="/events/new">Add Event</Link> |
+      <Link to="/events">Events  </Link> | 
+      
 
       {/* Volunteers */}
       <Link to="/volunteers">top Volunteersnk </Link> |

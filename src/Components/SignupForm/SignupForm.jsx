@@ -79,7 +79,7 @@ const inputStyle = {
 
 const buttonStyle = {
   padding: "10px 20px",
-  backgroundColor: "#5b7aa3", // أزرق فاتح مائل للرمادي
+  backgroundColor: "#5b7aa3",  
   color: "white",
   border: "none",
   borderRadius: "8px",

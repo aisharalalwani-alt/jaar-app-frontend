@@ -11,7 +11,7 @@ function PostsList() {
     const fetchPosts = async () => {
       try {
         const res = await api.get("posts/");
-        
+
         const sorted = res.data.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
@@ -44,7 +44,7 @@ function PostsList() {
             {posts.slice(0, visibleCount).map((post) => (
               <li key={post.id} className="post-item">
                 <h3>
-                  <i className=" fa fa-file-o" /> {post.title}  
+                  <i className=" fa fa-file-o" /> {post.title}
                 </h3>
                 <p>{post.content}</p>
 

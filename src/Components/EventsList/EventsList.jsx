@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./EventList.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function EventList() {
   const [events, setEvents] = useState([]);
@@ -40,33 +43,48 @@ function EventList() {
     navigate(`/events/${eventId}`);
   };
 
+  const handleAddEvent = () => {
+    navigate ("/events/new");
+  };
+
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">All Events</h2>
+    <div className="container">
+      <div className="container">
+  <div className="header">
+    <h2>All Events</h2>
+    <button className="add-button" onClick={handleAddEvent}>
+      <FontAwesomeIcon icon={faPlus} /> Add Event
+    </button>
+  </div>
 
-      {error && <p className="text-red-600 mb-4">{error}</p>}
+  {error && <p className="error">{error}</p>}
 
-      {events.length === 0 ? (
-        <p className="text-gray-600">No events found.</p>
-      ) : (
-        <ul className="space-y-4">
-          {events.map((event) => (
-            <li
-              key={event.id}
-              onClick={() => handleEventClick(event.id)}
-              className="border rounded-xl p-4 shadow-md bg-white hover:shadow-lg hover:bg-gray-50 transition cursor-pointer"
-            >
-              <h3 className="text-xl font-bold text-blue-600">{event.title}</h3>
-              <p className="text-gray-700">{event.description}</p>
-              <p className="text-sm text-gray-500">
-                📅 {new Date(event.date).toLocaleString()} | 📍{" "}
-                {event.location}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+  {events.length === 0 ? (
+    <p>No events found.</p>
+  ) : (
+    <ul className="event-list">
+      {events.map((event) => (
+        <li
+          key={event.id}
+          onClick={() => handleEventClick(event.id)}
+          className="event-item"
+        >
+          <h3 className="event-title">{event.title}</h3>
+          <p className="event-description">{event.description}</p>
+          <p className="event-meta">
+            <span>
+              <FontAwesomeIcon icon={faCalendar} /> {new Date(event.date).toLocaleString()}
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> {event.location}
+            </span>
+          </p>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+    </div>  
   );
 }
 

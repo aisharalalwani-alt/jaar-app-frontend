@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./EventCreate.css";
+ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle, faTimesCircle, faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 
 function CreateEvent() {
   const navigate = useNavigate();
@@ -10,6 +13,7 @@ function CreateEvent() {
     date: "",
     location: "",
   });
+  const [popup, setPopup] = useState({ show: false, success: true });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,73 +26,91 @@ function CreateEvent() {
       await axios.post("http://127.0.0.1:8000/api/events/", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert("Event created successfully!");
-      navigate("/events");
+      setPopup({ show: true, success: true });
     } catch (error) {
       console.error("Error creating event:", error);
-      alert("Failed to create event.");
+      setPopup({ show: true, success: false });
     }
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-lg">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Create New Event</h2>
+    <div className="container">
+      <h2>Create New Event</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow">
-        <div>
-          <label className="block mb-1 font-medium">Title</label>
-          <input
-            type="text"
-            name="title"
-            className="w-full border p-2 rounded-lg"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <label>Title</label>
+        <input
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+        />
 
-        <div>
-          <label className="block mb-1 font-medium">Description</label>
-          <textarea
-            name="description"
-            className="w-full border p-2 rounded-lg"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <label>Description</label>
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
 
-        <div>
-          <label className="block mb-1 font-medium">Date</label>
-          <input
-            type="date"
-            name="date"
-            className="w-full border p-2 rounded-lg"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <label>Date</label>
+        <input
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          required
+        />
 
-        <div>
-          <label className="block mb-1 font-medium">Location</label>
-          <input
-            type="text"
-            name="location"
-            className="w-full border p-2 rounded-lg"
-            value={formData.location}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <label>Location</label>
+        <input
+          type="text"
+          name="location"
+          value={formData.location}
+          onChange={handleChange}
+          required
+        />
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Create Event
+        <button type="submit" className="create-btn">
+          <FontAwesomeIcon icon={faCalendarPlus} /> Create Event
         </button>
       </form>
+
+      {popup.show && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            {popup.success ? (
+              <>
+                <h3 className="popup-success">
+                  <FontAwesomeIcon icon={faCheckCircle} /> Event Created Successfully!
+                </h3>
+                <p>Your event has been added successfully.</p>
+                <button
+                  className="popup-btn"
+                  onClick={() => navigate("/events")}
+                >
+                  Go to Events List
+                </button>
+              </>
+            ) : (
+              <>
+                <h3 className="popup-error">
+                  <FontAwesomeIcon icon={faTimesCircle} /> Failed to Create Event
+                </h3>
+                <p>Please check your connection or try again.</p>
+                <button
+                  className="popup-btn"
+                  onClick={() => setPopup({ show: false, success: true })}
+                >
+                  Close
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
