@@ -1,0 +1,78 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+.signup-page {
+  background-image: url("https://images.pexels.com/photos/4395882/pexels-photo-4395882.jpeg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-form-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.signup-form-container h2 {
+  margin-bottom: 20px;
+  color: #065f46; /* minty green */
+}
+
+.signup-form-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  background-color: rgba(255,255,255,0.9);
+  outline: none;
+  font-size: 1rem;
+}
+
+.signup-form-container input:focus {
+  border-color: #10b981;
+}
+
+.signup-form-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #10b981;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.signup-form-container button:hover {
+  background-color: #059669;
+}
+
+.signup-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #065f46;
+}
+
+.signup-footer a {
+  color: #10b981;
+  text-decoration: none;
+}
+
+.signup-footer a:hover {
+  text-decoration: underline;
+}

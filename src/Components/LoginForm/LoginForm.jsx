@@ -21,7 +21,10 @@ alert("Login failed");
 }
 };
 
-return ( <div className="login-container"> <h2>Login</h2> <form onSubmit={handleSubmit}>
+return (  <div className="login-page">
+   <div className="login-container"> <h2>Login</h2> <form onSubmit={handleSubmit}>
+
+
 <input
 type="text"
 placeholder="Username"
@@ -36,7 +39,7 @@ value={password}
 onChange={(e) => setPassword(e.target.value)}
 required
 /> <button type="submit">Login</button> </form> <p className="signup-link">
-Don't have an account? <Link to="/signup">Click here to sign up</Link> </p> </div>
+Don't have an account? <Link to="/signup">Click here to sign up</Link> </p> </div> </div>
 );
 }
 
