@@ -1,459 +1,504 @@
  /* ====== General Page Layout ====== */
-.user-profile {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  font-family: "Poppins", sans-serif;
-  color: #1e1e1e;
-}
+ .user-profile {
+     max-width: 1620px;
+     margin: 40px auto;
+     padding: 20px;
+     font-family: "Poppins", sans-serif;
+     color: #1e1e1e;
+     padding-top: 500px;
+     /* Adjust for fixed header */
+ }
 
-/* ====== Profile Card ====== */
-.profile-card {
-  background-color: #f9f9fb;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  margin-bottom: 30px;
-}
+ /* ====== Profile Card ====== */
+ .profile-card {
+     background-color: #f9f9fb;
+     border: 1px solid #ddd;
+     border-radius: 16px;
+     padding: 30px;
+     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+     text-align: center;
+     margin-bottom: 30px;
+     transition: transform 0.2s ease, box-shadow 0.3s ease;
+ }
 
-.profile-card img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #8b0000; /* Dark red border */
-  margin-bottom: 15px;
-}
+ .profile-card img {
+     width: 130px;
+     height: 130px;
+     border-radius: 50%;
+     object-fit: cover;
+     border: 4px solid #8b0000;
+     /* Dark red border */
+     margin-bottom: 15px;
+ }
 
-.profile-card h2 {
-  color: #8b0000;
-  margin-bottom: 5px;
-}
+ .profile-card h2 {
+     color: #8b0000;
+     margin-bottom: 5px;
+ }
 
-.profile-card p {
-  color: #555;
-  margin-bottom: 10px;
-}
+ .profile-card p {
+     color: #555;
+     margin-bottom: 10px;
+ }
 
-/* ====== Profile Buttons ====== */
-.profile-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 15px;
-}
+ /* ====== Profile Buttons ====== */
+ .profile-buttons {
+     display: flex;
+     justify-content: center;
+     gap: 12px;
+     margin-top: 15px;
+ }
 
-.profile-buttons button {
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: none;
+ .profile-buttons button {
+     padding: 8px 18px;
+     border-radius: 8px;
+     border: none;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s ease;
+ }
+
+ .profile-buttons .edit-btn {
+     background-color: #8b0000;
+     color: white;
+ }
+
+ .profile-buttons .save-btn {
+     background-color: #5b84b1;
+     color: white;
+ }
+
+ .profile-buttons .cancel-btn {
+     background-color: #ccc;
+     color: #333;
+ }
+
+ .profile-buttons button:hover {
+     transform: scale(1.05);
+ }
+
+ /* ====== Edit Profile Form ====== */
+ .edit-profile-form {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+     margin-top: 1rem;
+ }
+
+ .form-group {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .form-group label {
+     font-weight: bold;
+     margin-bottom: 0.3rem;
+     color: #444;
+ }
+
+ .form-group input,
+ .form-group textarea {
+     padding: 0.6rem;
+     border: 1px solid #ccc;
+     border-radius: 8px;
+     width: 100%;
+     font-size: 1rem;
+ }
+
+ .form-group textarea {
+     min-height: 80px;
+     resize: vertical;
+ }
+
+ .save-btn,
+ .cancel-btn {
+     padding: 0.6rem 1.2rem;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     font-weight: bold;
+ }
+
+ .save-btn {
+     background-color: #4caf50;
+     color: white;
+ }
+
+ .cancel-btn {
+     background-color: #ccc;
+     color: black;
+ }
+
+ /* ====== Posts & Events Sections ====== */
+ .section {
+     background-color: #ffffff;
+     border-radius: 12px;
+     padding: 20px;
+     margin-bottom: 25px;
+     border: 1px solid #eee;
+ }
+
+ .section h3 {
+     border-bottom: 2px solid #8b0000;
+     padding-bottom: 6px;
+     color: #8b0000;
+     margin-bottom: 20px;
+     font-size: 20px;
+ }
+
+ /* ====== Cards (Posts/Events Items) ====== */
+ .item-card {
+     background-color: #f4f6f8;
+     border-radius: 10px;
+     padding: 15px;
+     margin-bottom: 12px;
+     border-left: 5px solid #5b84b1;
+     transition: all 0.2s ease;
+ }
+
+ .item-card h4 {
+     margin: 0;
+     color: #333;
+ }
+
+ .item-card p {
+     color: #555;
+     margin-top: 6px;
+ }
+
+ .item-card:hover {
+     background-color: #e8eef2;
+     transform: translateY(-2px);
+ }
+
+ /* ====== Event Details Page ====== */
+ .event-detail-container {
+     max-width: 750px;
+     margin: 40px auto;
+     background: #fff;
+     border-radius: 15px;
+     padding: 30px;
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+     transition: 0.3s;
+ }
+
+ .event-detail-container:hover {
+     transform: translateY(-3px);
+ }
+
+ .event-title {
+     font-size: 2rem;
+     font-weight: 700;
+     color: #004aad;
+     margin-bottom: 10px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ .event-title i {
+     color: #004aad;
+ }
+
+ .event-description {
+     color: #444;
+     font-size: 1rem;
+     margin-bottom: 10px;
+ }
+
+ .event-info {
+     color: #666;
+     font-size: 0.9rem;
+     margin-bottom: 5px;
+ }
+
+ .event-info i {
+     color: #555;
+     margin-right: 6px;
+ }
+
+ /* ====== Button Group (Vertical Layout) ====== */
+ .button-group {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     margin-bottom: 20px;
+ }
+
+ /* Base button style */
+ .btn {
+     padding: 8px 14px;
+     font-size: 0.9rem;
+     border-radius: 8px;
+     font-weight: 600;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 6px;
+     transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+     border: none;
+ }
+
+ .btn:hover {
+     transform: translateY(-1px);
+ }
+
+ .btn i {
+     font-size: 1rem;
+ }
+
+ /* Button colors */
+ .btn-edit {
+     background-color: #10b981;
+     color: #fff;
+ }
+
+ .btn-edit:hover {
+     background-color: #059669;
+ }
+
+ .btn-delete {
+     background-color: #ef4444;
+     color: #fff;
+ }
+
+ .btn-delete:hover {
+     background-color: #b91c1c;
+ }
+
+ .btn-join {
+     background-color: #10b981;
+     color: #fff;
+ }
+
+ .btn-join:hover {
+     background-color: #059669;
+ }
+
+ /* ====== Volunteers Section ====== */
+ .volunteer-section {
+     margin-top: 25px;
+ }
+
+ .volunteer-section h3 {
+     font-size: 1.2rem;
+     color: #333;
+     margin-bottom: 10px;
+     display: flex;
+     align-items: center;
+     gap: 8px;
+ }
+
+ .volunteer-list {
+     background: #f9fafc;
+     border-radius: 8px;
+     padding: 12px 18px;
+     list-style: none;
+     color: #444;
+ }
+
+ .volunteer-list li {
+     padding: 6px 0;
+     border-bottom: 1px solid #eee;
+ }
+
+ .volunteer-list li:last-child {
+     border-bottom: none;
+ }
+
+ /* ====== Back Link ====== */
+ .back-link {
+     display: inline-block;
+     margin-top: 15px;
+     color: #004aad;
+     text-decoration: none;
+     transition: 0.3s;
+ }
+
+ .back-link:hover {
+     text-decoration: underline;
+ }
+
+ /* ====== Settings Dropdown Menu ====== */
+ .profile-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 15px;
+     position: relative;
+ }
+
+ .settings-menu {
+     position: relative;
+ }
+
+ .settings-icon {
+     font-size: 20px;
+     color: #444;
+     cursor: pointer;
+     transition: color 0.3s ease;
+ }
+
+ .settings-icon:hover {
+     color: #007bff;
+ }
+
+ .dropdown-menu {
+     position: absolute;
+     top: 30px;
+     right: 0;
+     background: #fff;
+     border: 1px solid #ddd;
+     border-radius: 8px;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+     padding: 8px 0;
+     width: 180px;
+     z-index: 10;
+     display: flex;
+     flex-direction: column;
+     animation: fadeIn 0.2s ease-in-out;
+ }
+
+ .dropdown-menu button {
+     background: none;
+     border: none;
+     color: #333;
+     text-align: left;
+     padding: 10px 15px;
+     font-size: 14px;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     transition: background 0.2s ease;
+ }
+
+ .dropdown-menu button:hover {
+     background: #f0f0f0;
+ }
+
+ .dropdown-menu .delete-account {
+     color: #c82333;
+ }
+
+ .dropdown-menu .delete-account:hover {
+     background: #ffe6e6;
+ }
+
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+         transform: translateY(-5px);
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
+
+ /* ====== Edit Modal ====== */
+ .modal-overlay {
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(3px);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 999;
+ }
+
+ .modal-content {
+     background: #fff;
+     border-radius: 16px;
+     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+     width: 90%;
+     max-width: 500px;
+     padding: 25px 30px;
+     position: relative;
+     animation: slideDown 0.3s ease;
+     font-family: "Tajawal", sans-serif;
+ }
+
+ .modal-title {
+     font-size: 1.4rem;
+     font-weight: 600;
+     margin-bottom: 15px;
+     color: #333;
+     text-align: center;
+ }
+
+ .modal-body {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+ }
+
+ .close-btn {
+     position: absolute;
+     top: 10px;
+     right: 15px;
+     border: none;
+     background: transparent;
+     font-size: 1.5rem;
+     cursor: pointer;
+     color: #777;
+     transition: color 0.2s;
+ }
+
+ .close-btn:hover {
+     color: #ffffff;
+ }
+ .edit-small-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.profile-buttons .edit-btn {
-  background-color: #8b0000;
-  color: white;
-}
-
-.profile-buttons .save-btn {
-  background-color: #5b84b1;
-  color: white;
-}
-
-.profile-buttons .cancel-btn {
-  background-color: #ccc;
-  color: #333;
-}
-
-.profile-buttons button:hover {
-  transform: scale(1.05);
-}
-
-/* ====== Edit Profile Form ====== */
-.edit-profile-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-  color: #444;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 100%;
-  font-size: 1rem;
-}
-
-.form-group textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.save-btn,
-.cancel-btn {
-  padding: 0.6rem 1.2rem;
-  border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
-}
-
-.save-btn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.cancel-btn {
-  background-color: #ccc;
-  color: black;
-}
-
-/* ====== Posts & Events Sections ====== */
-.section {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 25px;
-  border: 1px solid #eee;
-}
-
-.section h3 {
-  border-bottom: 2px solid #8b0000;
-  padding-bottom: 6px;
-  color: #8b0000;
-  margin-bottom: 20px;
-  font-size: 20px;
-}
-
-/* ====== Cards (Posts/Events Items) ====== */
-.item-card {
-  background-color: #f4f6f8;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-left: 5px solid #5b84b1;
-  transition: all 0.2s ease;
-}
-
-.item-card h4 {
-  margin: 0;
-  color: #333;
-}
-
-.item-card p {
-  color: #555;
-  margin-top: 6px;
-}
-
-.item-card:hover {
-  background-color: #e8eef2;
-  transform: translateY(-2px);
-}
-
-/* ====== Event Details Page ====== */
-.event-detail-container {
-  max-width: 750px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
-}
-
-.event-detail-container:hover {
-  transform: translateY(-3px);
-}
-
-.event-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #004aad;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.event-title i {
-  color: #004aad;
-}
-
-.event-description {
-  color: #444;
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-
-.event-info {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
-
-.event-info i {
-  color: #555;
-  margin-right: 6px;
-}
-
-/* ====== Button Group (Vertical Layout) ====== */
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-/* Base button style */
-.btn {
-  padding: 8px 14px;
-  font-size: 0.9rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: background-color 0.2s ease-in-out, transform 0.2s ease;
   border: none;
+  transition: all 0.2s ease-in-out;
 }
-
-.btn:hover {
-  transform: translateY(-1px);
-}
-
-.btn i {
-  font-size: 1rem;
-}
-
-/* Button colors */
-.btn-edit {
-  background-color: #10b981;
-  color: #fff;
-}
-
-.btn-edit:hover {
+.edit-small-btn:hover {
   background-color: #059669;
-}
+  color: #fff;  
+}   
 
-.btn-delete {
+.delete-btn {
   background-color: #ef4444;
   color: #fff;
-}
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;    
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;  
+     padding: 0.6rem 1.2rem;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     font-weight: bold;
+     margin-right: 10px;    
+     margin-left: 10px; 
 
-.btn-delete:hover {
-  background-color: #b91c1c;
 }
+.delete-btn:hover {
+  background-color: #b91c1c;            
+    color: #fff;    
 
-.btn-join {
-  background-color: #10b981;
-  color: #fff;
-}
+}       
+ @keyframes slideDown {
+     from {
+         opacity: 0;
+         transform: translateY(-20px);
+     }
 
-.btn-join:hover {
-  background-color: #059669;
-}
-
-/* ====== Volunteers Section ====== */
-.volunteer-section {
-  margin-top: 25px;
-}
-
-.volunteer-section h3 {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.volunteer-list {
-  background: #f9fafc;
-  border-radius: 8px;
-  padding: 12px 18px;
-  list-style: none;
-  color: #444;
-}
-
-.volunteer-list li {
-  padding: 6px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.volunteer-list li:last-child {
-  border-bottom: none;
-}
-
-/* ====== Back Link ====== */
-.back-link {
-  display: inline-block;
-  margin-top: 15px;
-  color: #004aad;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-/* ====== Settings Dropdown Menu ====== */
-.profile-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  position: relative;
-}
-
-.settings-menu {
-  position: relative;
-}
-
-.settings-icon {
-  font-size: 20px;
-  color: #444;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.settings-icon:hover {
-  color: #007bff;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 30px;
-  right: 0;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 8px 0;
-  width: 180px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  animation: fadeIn 0.2s ease-in-out;
-}
-
-.dropdown-menu button {
-  background: none;
-  border: none;
-  color: #333;
-  text-align: left;
-  padding: 10px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.2s ease;
-}
-
-.dropdown-menu button:hover {
-  background: #f0f0f0;
-}
-
-.dropdown-menu .delete-account {
-  color: #c82333;
-}
-
-.dropdown-menu .delete-account:hover {
-  background: #ffe6e6;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ====== Edit Modal ====== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(3px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.modal-content {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 500px;
-  padding: 25px 30px;
-  position: relative;
-  animation: slideDown 0.3s ease;
-  font-family: "Tajawal", sans-serif;
-}
-
-.modal-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-  color: #333;
-  text-align: center;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  border: none;
-  background: transparent;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #777;
-  transition: color 0.2s;
-}
-
-.close-btn:hover {
-  color: #000;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }

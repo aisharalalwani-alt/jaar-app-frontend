@@ -265,7 +265,7 @@ function UserProfile() {
                         openModal(item, section === "posts" ? "post" : "event")
                       }
                     >
-                      Edit/Delete
+                      Edit 
                     </button>
                   )}
                 </div>
