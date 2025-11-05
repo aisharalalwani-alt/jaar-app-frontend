@@ -1,11 +1,10 @@
- 
-/* ========================== NavBar.css ========================== */
+  /* ========================== NavBar.css ========================== */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #2c3e50;
-  padding: 10px 20px;
+  padding: 12px 24px;
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +15,7 @@
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -43,13 +42,21 @@
   color: #f1c40f;
 }
 
-/* ========================== EventList.css ========================== */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+.menu-toggle {
+  display: none;
 }
 
+/* ========================== Containers ========================== */
+.container,
+.posts-container,
+.events-container {
+  width: 90%;  
+  margin: 0 auto;
+  padding: 100px 20px 20px 20px; 
+  box-sizing: border-box;
+}
+
+/* ========================== EventList.css ========================== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -69,7 +76,6 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
-  margin-bottom: 16px;
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -100,7 +106,7 @@
 }
 
 .event-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #2563eb;
   margin-bottom: 8px;
@@ -112,14 +118,14 @@
 }
 
 .event-meta {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: #6b7280;
   display: flex;
   gap: 8px;
 }
 
 .event-meta i {
-  color: #555;  
+  color: #555;
 }
 
 .event-meta span {
@@ -128,21 +134,20 @@
 }
 
 /* ========================== PostsList.css ========================== */
-.posts-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .posts-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  position: sticky; /* يبقي عنوان Posts ثابت */
+  top: 100px; /* بعد Navbar */
+  background-color: white;
+  z-index: 500;
+  padding: 10px 0;
 }
 
 .posts-header h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: #1f2937;
   display: flex;
   align-items: center;
@@ -177,14 +182,14 @@
   border-radius: 12px;
   padding: 16px;
   background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  margin-bottom: 20px;  
+  margin-bottom: 20px;
 }
 
 .post-item:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
   background-color: #f9fafb;
 }
 
@@ -241,23 +246,25 @@
   background-color: #2563eb;
 }
 
-/* Hamburger menu */
-.menu-toggle {
-  display: none;
-  cursor: pointer;
+/* ========================== Responsive ========================== */
+@media (max-width: 1024px) {
+  .container,
+  .posts-container,
+  .events-container {
+    width: 95%;
+    padding: 100px 15px 20px 15px;
+  }
 }
 
-/* Mobile styles */
-@media (max-width:500px) {
+@media (max-width: 768px) {
   .nav-links {
     position: absolute;
-    top: 100%;
+    top: 60px;
     left: 0;
     right: 0;
     background-color: #2c3e50;
     flex-direction: column;
     display: none;
-    gap: 0;
   }
 
   .nav-links.open {
@@ -271,9 +278,5 @@
 
   .menu-toggle {
     display: block;
-  }
-
-  .nav-links {
-    justify-content: flex-start;
   }
 }

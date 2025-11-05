@@ -1,48 +1,69 @@
-import React, { useState, useEffect, useRef } from "react";
+ import React from "react";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faStar, faHome, faCalendarAlt, faNewspaper, faGem, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import "./NavBar.css";
+import {
+  faGem,
+  faHome,
+  faNewspaper,
+  faCalendarAlt,
+  faStar,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
-  const navRef = useRef(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-   useEffect(() => {
-    const setBodyPadding = () => {
-      if (navRef.current) {
-        document.body.style.paddingTop = `${navRef.current.offsetHeight}px`;
-      }
-    };
-
-    setBodyPadding();
-    window.addEventListener("resize", setBodyPadding);
-
-    return () => window.removeEventListener("resize", setBodyPadding);
-  }, [menuOpen]);
-
   return (
-    <nav className="navbar" ref={navRef}>
-      <div className="logo">
-        <FontAwesomeIcon icon={faGem} /> MyNeighborhood
-      </div>
+    <Navbar collapseOnSelect expand="lg" className="bg-light shadow-sm" fixed="top">
+      <Container>
+        {/* Logo */}
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+          <FontAwesomeIcon icon={faGem} className="me-2" />
+          MyNeighborhood
+        </Navbar.Brand>
 
-      {/* Hamburger Menu for mobile */}
-      <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-        <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} size="lg" />
-      </div>
+        {/* Toggle for mobile */}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-      {/* Links */}
-      <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-        <Link to="/"><FontAwesomeIcon icon={faHome} /> Home</Link>
-        <Link to="/posts"><FontAwesomeIcon icon={faNewspaper} /> Posts</Link>
-        <Link to="/events"><FontAwesomeIcon icon={faCalendarAlt} /> Events</Link>
-        <Link to="/volunteers"><FontAwesomeIcon icon={faStar} /> Top Volunteers</Link>
-        <Link to="/neighbors">Neighbors List</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/profile"><FontAwesomeIcon icon={faUserCircle} /> Profile</Link>
-      </div>
-    </nav>
+        {/* Navbar links */}
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faHome} className="me-1" />
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/posts" className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faNewspaper} className="me-1" />
+              Posts
+            </Nav.Link>
+            <Nav.Link as={Link} to="/events" className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faCalendarAlt} className="me-1" />
+              Events
+            </Nav.Link>
+            <Nav.Link as={Link} to="/volunteers" className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faStar} className="me-1" />
+              Top Volunteers
+            </Nav.Link>
+            <Nav.Link as={Link} to="/neighbors">Neighbors List</Nav.Link>
+          </Nav>
+
+          {/* Profile dropdown */}
+          <Nav>
+            <NavDropdown
+              title={
+                <span className="d-flex align-items-center">
+                  <FontAwesomeIcon icon={faUserCircle} className="me-1" />
+                  Profile
+                </span>
+              }
+              id="profile-dropdown"
+            >
+              <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

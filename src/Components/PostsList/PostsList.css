@@ -1,16 +1,28 @@
- 
+ .sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;  
+  padding: 400px 0;
+    z-index: 500;
+
+}
 .posts-container {
-  max-width: 800px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 20px;
 }
 
- 
-.posts-header {
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 100;
+  padding: 20px ;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+   margin-top: 20px;
+
 }
 
 .posts-header h2 {
@@ -20,7 +32,7 @@
   align-items: center;
   gap: 8px;
 }
- 
+
 .add-post-btn {
   display: inline-flex;
   align-items: center;
@@ -36,10 +48,8 @@
 
 .add-post-btn:hover {
   background-color: #059669;
-    color: rgb(255, 255, 255);
 }
 
- 
 .posts-list {
   list-style: none;
   padding: 0;
@@ -55,6 +65,7 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin-bottom: 20px;  
+  animation: fadeIn 0.3s ease forwards;
 }
 
 .post-item:hover {
@@ -85,7 +96,6 @@
   gap: 6px;
 }
 
- 
 .post-image-container {
   margin: 10px 0;
   text-align: center;
@@ -99,7 +109,6 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
- 
 .show-more-btn {
   display: block;
   margin: 20px auto;
@@ -115,4 +124,10 @@
 
 .show-more-btn:hover {
   background-color: #2563eb;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

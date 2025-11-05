@@ -4,6 +4,7 @@ import "font-awesome/css/font-awesome.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faMapMarkerAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from "./Components/NavBar/NavBar.jsx";
 
  
