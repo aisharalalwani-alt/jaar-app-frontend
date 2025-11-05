@@ -1,340 +1,237 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { Card, Accordion, Button, Modal, Form, Row, Col, Dropdown, Container } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash, faSignOut, faChevronRight, faCog } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "./UserProfile.css";
 
 function UserProfile() {
-  const [profile, setProfile] = useState(null);
-  const [posts, setPosts] = useState([]);
-  const [createdEvents, setCreatedEvents] = useState([]);
-  const [joinedEvents, setJoinedEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editMode, setEditMode] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [openSections, setOpenSections] = useState({
-    posts: false,
-    createdEvents: false,
-    joinedEvents: false,
-  });
+const [profile, setProfile] = useState(null);
+const [formData, setFormData] = useState({ house_number: "", street: "", postal_code: "", phone: "", bio: "" });
+const [posts, setPosts] = useState([]);
+const [createdEvents, setCreatedEvents] = useState([]);
+const [joinedEvents, setJoinedEvents] = useState([]);
+const [loading, setLoading] = useState(true);
+const [editMode, setEditMode] = useState(false);
+const [modalShow, setModalShow] = useState(false);
+const [modalItem, setModalItem] = useState(null);
+const [editFields, setEditFields] = useState({});
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("");
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [editFields, setEditFields] = useState({});
-  const [formData, setFormData] = useState({
-    house_number: "",
-    street: "",
-    postal_code: "",
-    phone: "",
-    bio: "",
-  });
+const navigate = useNavigate();
 
-  const menuRef = useRef(null);
+useEffect(() => {
+const fetchData = async () => {
+try {
+const res = await api.get("my-profile/");
+const data = res.data;
+setProfile(data.profile);
+setFormData({
+house_number: data.profile.house_number || "",
+street: data.profile.street || "",
+postal_code: data.profile.postal_code || "",
+phone: data.profile.phone || "",
+bio: data.profile.bio || "",
+});
+setPosts(data.posts);
+setCreatedEvents(data.created_events);
+setJoinedEvents(data.joined_events);
+} catch (err) {
+console.error(err);
+} finally {
+setLoading(false);
+}
+};
+fetchData();
+}, []);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get("my-profile/");
-        const data = res.data;
-        setProfile(data.profile);
-        setPosts(data.posts);
-        setCreatedEvents(data.created_events);
-        setJoinedEvents(data.joined_events);
-        setFormData({
-          house_number: data.profile.house_number || "",
-          street: data.profile.street || "",
-          postal_code: data.profile.postal_code || "",
-          phone: data.profile.phone || "",
-          bio: data.profile.bio || "",
-        });
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+const handleSaveProfile = async () => {
+try {
+const res = await api.put("my-profile/", formData);
+setProfile(res.data);
+setEditMode(false);
+alert("Profile updated!");
+} catch (err) {
+console.error(err);
+alert("Failed to update profile.");
+}
+};
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+const handleDeleteAccount = async () => {
+if (!window.confirm("Are you sure you want to delete your account?")) return;
+try {
+await api.delete("delete-account/");
+localStorage.removeItem("token");
+navigate("/signup");
+} catch (err) {
+console.error(err);
+alert("Failed to delete account.");
+}
+};
 
-  const handleSaveProfile = async () => {
-    try {
-      const res = await api.put("my-profile/", formData);
-      setProfile(res.data);
-      setEditMode(false);
-      alert("Profile updated!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to update profile.");
-    }
-  };
+const handleLogout = () => {
+localStorage.removeItem("token");
+localStorage.removeItem("access");
+localStorage.removeItem("refresh");
+navigate("/login");
+};
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  };
+const handleEditClick = (item, type) => {
+setModalItem({ ...item, type });
+setEditFields({ ...item });
+setModalShow(true);
+};
 
-  const handleDeleteAccount = async () => {
-    if (!window.confirm("Are you sure you want to delete your account?")) return;
-    try {
-      await api.delete("delete-account/");
-      localStorage.removeItem("token");
-      window.location.href = "/signup";
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete account.");
-    }
-  };
+const handleModalSave = async () => {
+try {
+if (modalItem.type === "post") {
+const res = await api.put(`posts/${modalItem.id}/`, editFields);
+setPosts(posts.map(p => (p.id === modalItem.id ? res.data : p)));
+} else {
+const res = await api.put(`events/${modalItem.id}/`, editFields);
+setCreatedEvents(createdEvents.map(e => (e.id === modalItem.id ? res.data : e)));
+}
+setModalShow(false);
+} catch (err) {
+console.error(err);
+alert("Update failed.");
+}
+};
 
-  const toggleSection = (section) =>
-    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+const handleModalDelete = async () => {
+try {
+if (modalItem.type === "post") {
+await api.delete(`posts/${modalItem.id}/`);
+setPosts(posts.filter(p => p.id !== modalItem.id));
+} else {
+await api.delete(`events/${modalItem.id}/`);
+setCreatedEvents(createdEvents.filter(e => e.id !== modalItem.id));
+}
+setModalShow(false);
+} catch (err) {
+console.error(err);
+alert("Delete failed.");
+}
+};
 
-  const openModal = (item, type) => {
-    setSelectedItem(item);
-    setModalType(type);
-    setEditFields(
-      type === "post"
-        ? { title: item.title, content: item.content }
-        : {
-            title: item.title,
-            description: item.description,
-            date: item.date,
-            location: item.location,
-          }
-    );
-    setModalOpen(true);
-  };
+if (loading) return <p>Loading...</p>;
+if (!profile) return <p>No profile found.</p>;
 
-  const closeModal = () => {
-    setModalOpen(false);
-    setSelectedItem(null);
-    setModalType("");
-    setEditFields({});
-  };
+return (
+<Container fluid style={{ paddingTop: "80px", maxWidth: "900px" }}> <Card className="mb-4">
+<Card.Header> <Row className="align-items-center"> <Col><h4>{profile.user}</h4></Col> <Col className="text-end"> <Dropdown align="end">
+<Dropdown.Toggle variant="outline-secondary" bsPrefix="custom-dropdown-toggle"> <FontAwesomeIcon icon={faCog} />  
+</Dropdown.Toggle>
+<Dropdown.Menu>
+<Dropdown.Item onClick={() => setEditMode(true)}><FontAwesomeIcon icon={faEdit} /> Edit Profile</Dropdown.Item>
+<Dropdown.Item onClick={handleLogout}><FontAwesomeIcon icon={faSignOut} /> Logout</Dropdown.Item>
+<Dropdown.Item onClick={handleDeleteAccount} className="text-danger"><FontAwesomeIcon icon={faTrash} /> Delete Account</Dropdown.Item>
+</Dropdown.Menu> </Dropdown> </Col> </Row>
+</Card.Header>
 
-  const updateItem = async () => {
-    try {
-      if (modalType === "post") {
-        const res = await api.put(`posts/${selectedItem.id}/`, editFields);
-        setPosts(posts.map((p) => (p.id === selectedItem.id ? res.data : p)));
-      } else {
-        const res = await api.put(`events/${selectedItem.id}/`, editFields);
-        setCreatedEvents(
-          createdEvents.map((e) =>
-            e.id === selectedItem.id ? res.data : e
-          )
-        );
-      }
-      closeModal();
-    } catch (err) {
-      console.error(err);
-      alert("Update failed.");
-    }
-  };
 
-  const deleteItem = async () => {
-    try {
-      if (modalType === "post") {
-        await api.delete(`posts/${selectedItem.id}/`);
-        setPosts(posts.filter((p) => p.id !== selectedItem.id));
-      } else {
-        await api.delete(`events/${selectedItem.id}/`);
-        setCreatedEvents(
-          createdEvents.filter((e) => e.id !== selectedItem.id)
-        );
-      }
-      closeModal();
-    } catch (err) {
-      console.error(err);
-      alert("Delete failed.");
-    }
-  };
+    <Card.Body>  
+      {editMode ? (  
+        <Form>  
+          {["house_number","street","postal_code","phone","bio"].map(f => (  
+            <Form.Group className="mb-3" key={f}>  
+              <Form.Label>{f.replace("_"," ").toUpperCase()}</Form.Label>  
+              {f==="bio" ? <Form.Control as="textarea" name={f} value={formData[f]} onChange={handleChange} /> : <Form.Control type="text" name={f} value={formData[f]} onChange={handleChange} />}  
+            </Form.Group>  
+          ))}  
+          <Button onClick={handleSaveProfile}>Save</Button>  
+          <Button variant="secondary" className="ms-2" onClick={() => setEditMode(false)}>Cancel</Button>  
+        </Form>  
+      ) : (  
+        <>  
+          <p><strong>House Number:</strong> {profile.house_number || "Not set"}</p>  
+          <p><strong>Street:</strong> {profile.street || "Not set"}</p>  
+          <p><strong>Postal Code:</strong> {profile.postal_code || "Not set"}</p>  
+          <p><strong>Phone:</strong> {profile.phone || "Not set"}</p>  
+          <p><strong>Bio:</strong> {profile.bio || "No bio yet"}</p>  
+        </>  
+      )}  
+    </Card.Body>  
+  </Card>  
 
-  if (loading) return <p className="loading">Loading profile...</p>;
-  if (!profile) return <p className="loading">No profile found.</p>;
+  <Accordion defaultActiveKey="">  
+    <Accordion.Item eventKey="0">  
+      <Accordion.Header><FontAwesomeIcon icon={faChevronRight} className="me-2" /> My Posts</Accordion.Header>  
+      <Accordion.Body>  
+        {posts.map(post => (  
+          <Card key={post.id} className="mb-2 p-2">  
+            <h5>{post.title}</h5>  
+            <p>{post.content}</p>  
+            <Button size="sm" onClick={() => handleEditClick(post, "post")}><FontAwesomeIcon icon={faEdit} /> Edit</Button>  
+          </Card>  
+        ))}  
+      </Accordion.Body>  
+    </Accordion.Item>  
 
-  return (
-    <div className="user-profile">
-      <div className="profile-header">
-        <h2 className="page-title">My Profile</h2>
-        <div className="menu-container" ref={menuRef}>
-          <i
-            className="fa fa-cog menu-icon"
-            onClick={() => setMenuOpen(!menuOpen)}
-          ></i>
+    <Accordion.Item eventKey="1">  
+      <Accordion.Header><FontAwesomeIcon icon={faChevronRight} className="me-2" /> Created Events</Accordion.Header>  
+      <Accordion.Body>  
+        {createdEvents.map(event => (  
+          <Card key={event.id} className="mb-2 p-2">  
+            <h5>{event.title}</h5>  
+            <p>{event.description}</p>  
+            <Button size="sm" onClick={() => handleEditClick(event, "event")}><FontAwesomeIcon icon={faEdit} /> Edit</Button>  
+          </Card>  
+        ))}  
+      </Accordion.Body>  
+    </Accordion.Item>  
 
-          {menuOpen && (
-            <div className="dropdown-menu">
-              <button onClick={() => setEditMode(true)}>
-                <i className="fa fa-edit"></i> Edit Profile
-              </button>
-              <button onClick={handleLogout}>
-                <i className="fa fa-sign-out"></i> Logout
-              </button>
-              <button onClick={handleDeleteAccount} className="danger">
-                <i className="fa fa-trash"></i> Delete Account
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+    <Accordion.Item eventKey="2">  
+      <Accordion.Header><FontAwesomeIcon icon={faChevronRight} className="me-2" /> Joined Events</Accordion.Header>  
+      <Accordion.Body>  
+        {joinedEvents.map(event => (  
+          <Card key={event.id} className="mb-2 p-2">  
+            <h5>{event.title}</h5>  
+            <p>{event.description}</p>  
+          </Card>  
+        ))}  
+      </Accordion.Body>  
+    </Accordion.Item>  
+  </Accordion>  
 
-      <div className="profile-card">
-        {editMode ? (
-          <form className="edit-profile-form">
-            {["house_number", "street", "postal_code", "phone", "bio"].map(
-              (field) => (
-                <div key={field} className="form-group">
-                  <label>{field.replace("_", " ").toUpperCase()}</label>
-                  {field === "bio" ? (
-                    <textarea
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleChange}
-                    />
-                  ) : (
-                    <input
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleChange}
-                    />
-                  )}
-                </div>
-              )
-            )}
-            <div className="profile-buttons">
-              <button className="save-btn" onClick={handleSaveProfile} type="button">
-                Save
-              </button>
-              <button className="cancel-btn" onClick={() => setEditMode(false)} type="button">
-                Cancel
-              </button>
-            </div>
-          </form>
-        ) : (
-          <>
-            <p><strong>Username:</strong> {profile.user}</p>
-            <p><strong>House Number:</strong> {profile.house_number || "Not set"}</p>
-            <p><strong>Street:</strong> {profile.street || "Not set"}</p>
-            <p><strong>Postal Code:</strong> {profile.postal_code || "Not set"}</p>
-            <p><strong>Phone:</strong> {profile.phone || "Not set"}</p>
-            <p><strong>Bio:</strong> {profile.bio || "No bio yet"}</p>
-          </>
-        )}
-      </div>
+  <Modal show={modalShow} onHide={() => setModalShow(false)}>  
+    <Modal.Header closeButton>  
+      <Modal.Title>{modalItem?.type==="post" ? "Edit Post" : "Edit Event"}</Modal.Title>  
+    </Modal.Header>  
+    <Modal.Body>  
+      <Form>  
+        <Form.Group className="mb-2">  
+          <Form.Label>Title</Form.Label>  
+          <Form.Control type="text" value={editFields.title || ""} onChange={e=>setEditFields({...editFields, title:e.target.value})} />  
+        </Form.Group>  
+        <Form.Group className="mb-2">  
+          <Form.Label>{modalItem?.type==="post"?"Content":"Description"}</Form.Label>  
+          <Form.Control as="textarea" value={modalItem?.type==="post"?editFields.content:editFields.description||""} onChange={e=>setEditFields({...editFields,[modalItem?.type==="post"?"content":"description"]:e.target.value})} />  
+        </Form.Group>  
+        {modalItem?.type==="event" && (  
+          <>  
+            <Form.Group className="mb-2">  
+              <Form.Label>Date</Form.Label>  
+              <Form.Control type="datetime-local" value={editFields.date||""} onChange={e=>setEditFields({...editFields,date:e.target.value})} />  
+            </Form.Group>  
+            <Form.Group className="mb-2">  
+              <Form.Label>Location</Form.Label>  
+              <Form.Control type="text" value={editFields.location||""} onChange={e=>setEditFields({...editFields,location:e.target.value})} />  
+            </Form.Group>  
+          </>  
+        )}  
+      </Form>  
+    </Modal.Body>  
+    <Modal.Footer>  
+      <Button variant="primary" onClick={handleModalSave}>Save</Button>  
+      <Button variant="danger" onClick={handleModalDelete}>Delete</Button>  
+    </Modal.Footer>  
+  </Modal>  
+</Container>  
 
-      {["posts", "createdEvents", "joinedEvents"].map((section) => (
-        <div key={section} className="section">
-          <h3 onClick={() => toggleSection(section)} className="section-title">
-            <i
-              className={`fa ${
-                openSections[section] ? "fa-chevron-down" : "fa-chevron-right"
-              }`}
-            ></i>{" "}
-            {section === "posts"
-              ? "My Posts 📝"
-              : section === "createdEvents"
-              ? "Created Events 🎉"
-              : "Joined Events 🤝"}
-          </h3>
-
-          {openSections[section] &&
-            (section === "posts" ? posts : section === "createdEvents" ? createdEvents : joinedEvents).map(
-              (item) => (
-                <div key={item.id} className="item-card">
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.content || item.description}</p>
-                  </div>
-                  {(section === "posts" || section === "createdEvents") && (
-                    <button
-                      className="edit-small-btn"
-                      onClick={() =>
-                        openModal(item, section === "posts" ? "post" : "event")
-                      }
-                    >
-                      Edit 
-                    </button>
-                  )}
-                </div>
-              )
-            )}
-        </div>
-      ))}
-
-      {modalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div
-            className="modal"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-          >
-            <button className="close-modal" onClick={closeModal}>
-              ×
-            </button>
-            <h3>{modalType === "post" ? "Edit Post" : "Edit Event"}</h3>
-            <input
-              type="text"
-              value={editFields.title}
-              onChange={(e) =>
-                setEditFields({ ...editFields, title: e.target.value })
-              }
-              placeholder="Title"
-            />
-            <textarea
-              value={
-                modalType === "post"
-                  ? editFields.content
-                  : editFields.description
-              }
-              onChange={(e) =>
-                setEditFields({
-                  ...editFields,
-                  [modalType === "post" ? "content" : "description"]:
-                    e.target.value,
-                })
-              }
-              placeholder="Description"
-            />
-            {modalType === "event" && (
-              <>
-                <input
-                  type="datetime-local"
-                  value={editFields.date}
-                  onChange={(e) =>
-                    setEditFields({ ...editFields, date: e.target.value })
-                  }
-                />
-                <input
-                  type="text"
-                  value={editFields.location}
-                  onChange={(e) =>
-                    setEditFields({ ...editFields, location: e.target.value })
-                  }
-                  placeholder="Location"
-                />
-              </>
-            )}
-            <div className="modal-buttons">
-              <button className="save-btn" onClick={updateItem}>Save</button>
-              <button className="delete-btn" onClick={deleteItem}>Delete</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+);
 }
 
 export default UserProfile;

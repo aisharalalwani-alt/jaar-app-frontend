@@ -1,13 +1,10 @@
- body {
-font-family: "Poppins", sans-serif;
-padding-top: 80px; /* ارتفاع مناسب للـ navbar */
-margin: 0;
-}
+
 
 .events-container {
-max-width: 800px;
-margin: 0 auto;
-padding: 20px;
+
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .events-header {

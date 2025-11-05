@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from "react";
-import api from "../../services/api";  
+ import React, { useEffect, useState } from "react";
+import api from "../../services/api";
+import { Table, Container } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
-function VolunteersList() {
-  const [volunteers, setVolunteers] = useState([]);
+function TopVolunteers() {
   const [topVolunteers, setTopVolunteers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchVolunteers();
     fetchTopVolunteers();
   }, []);
-
-  const fetchVolunteers = async () => {
-    try {
-      const response = await api.get("/volunteers/");
-      setVolunteers(response.data);
-    } catch (error) {
-      console.error("Error fetching volunteers:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchTopVolunteers = async () => {
     try {
@@ -28,65 +18,43 @@ function VolunteersList() {
       setTopVolunteers(response.data);
     } catch (error) {
       console.error("Error fetching top volunteers:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading) return <p>Loading volunteers...</p>;
+  if (loading) return <p>Loading top volunteers...</p>;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2 style={{ color: "#2c3e50" }}>🏆 Top 10 Volunteers</h2>
+     <Container fluid style={{ paddingTop: "80px", paddingBottom: "80px" , maxWidth: "900px" }}>
+      <h2 className="mb-3">🏆 Top 10 Volunteers</h2>
       {topVolunteers.length > 0 ? (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {topVolunteers.map((v, index) => (
-            <li
-              key={v.id}
-              style={{
-                background: "#f1f1f1",
-                margin: "5px 0",
-                padding: "10px",
-                borderRadius: "8px",
-              }}
-            >
-              <strong>
-                #{index + 1} {v.name}
-              </strong>{" "}
-              <br />
-              <small>Phone: {v.phone}</small>
-            </li>
-          ))}
-        </ul>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Events </th>
+            </tr>
+          </thead>
+          <tbody>
+            {topVolunteers.map((v, index) => (
+              <tr key={v.id}>
+                <td>{index + 1}</td>
+                <td>{v.name}</td>
+                <td>
+                  <FontAwesomeIcon icon={faCalendarAlt} className="me-1" />
+                  {v.total_events}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       ) : (
         <p>No top volunteers yet.</p>
       )}
-
-      <hr style={{ margin: "30px 0" }} />
-
-      <h2 style={{ color: "#2c3e50" }}>📋 All Volunteers</h2>
-      {volunteers.length > 0 ? (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {volunteers.map((v) => (
-            <li
-              key={v.id}
-              style={{
-                background: "#fff",
-                margin: "5px 0",
-                padding: "10px",
-                borderRadius: "8px",
-                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-              }}
-            >
-              <strong>{v.name}</strong>
-              <br />
-              <small>Phone: {v.phone}</small>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No volunteers found.</p>
-      )}
-    </div>
+    </Container>
   );
 }
 
-export default VolunteersList;
+export default TopVolunteers;

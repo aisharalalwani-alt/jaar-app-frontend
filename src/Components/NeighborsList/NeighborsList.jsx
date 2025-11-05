@@ -1,72 +1,54 @@
 import React, { useEffect, useState } from "react";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faPhone } from "@fortawesome/free-solid-svg-icons";
 import api from "../../services/api";
 
 function NeighborsList() {
-  const [neighbors, setNeighbors] = useState([]);
-  const [loading, setLoading] = useState(true);
+const [neighbors, setNeighbors] = useState([]);
+const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchNeighbors = async () => {
-      try {
-        const res = await api.get("neighbors/");
-        setNeighbors(res.data);
-      } catch (err) {
-        console.error("Error fetching neighbors:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchNeighbors();
-  }, []);
+useEffect(() => {
+const fetchNeighbors = async () => {
+try {
+const res = await api.get("neighbors/");
+setNeighbors(res.data);
+} catch (err) {
+console.error("Error fetching neighbors:", err);
+} finally {
+setLoading(false);
+}
+};
+fetchNeighbors();
+}, []);
 
-  if (loading) return <p>Loading neighbors...</p>;
+if (loading) return <p className="text-center mt-3">Loading neighbors...</p>;
 
-  return (
-    <div style={{ padding: "30px", maxWidth: "600px", margin: "auto" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        🏡 Neighbors in Your Street
-      </h2>
-
-      {neighbors.length > 0 ? (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {neighbors.map((n) => (
-            <li
-              key={n.id}
-              style={{
-                background: "#f8f9fa",
-                marginBottom: "10px",
-                padding: "15px",
-                borderRadius: "10px",
-                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-              }}
-            >
-              <Link
-                to={`/neighbors/${n.id}`}
-                style={{
-                  textDecoration: "none",
-                  color: "#007bff",
-                  fontWeight: "bold",
-                  fontSize: "18px",
-                }}
-              >
-                {n.user}
-              </Link>
-              <p style={{ margin: "5px 0", color: "#555" }}>
-                🏠 {n.house_number}, {n.street}
-              </p>
-              <p style={{ margin: "0", color: "#777" }}>
-                📞 {n.phone || "No phone available"}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p style={{ textAlign: "center" }}>No neighbors found on your street.</p>
-      )}
-    </div>
-  );
+return (
+<Container
+fluid
+style={{ paddingTop: "80px", maxWidth: "700px", height: "calc(100vh - 80px)", overflowY: "auto" }}
+> <h2 className="text-center mb-4"> Neighbors Around You </h2>
+{neighbors.length > 0 ? ( <Row className="g-3">
+{neighbors.map((n) => ( <Col xs={12} key={n.id}> <Card className="shadow-sm">
+<Card.Body>
+<Card.Title>
+<Link
+to={`/neighbors/${n.id}`}
+style={{ textDecoration: "none", color: "#0d6efd" }}
+>
+{n.user} </Link>
+</Card.Title>
+<Card.Text>
+<FontAwesomeIcon icon={faHouse} style={{ color: "#717171ff", marginRight: "8px" }} />
+{n.house_number}, {n.street}
+</Card.Text>
+</Card.Body> </Card> </Col>
+))} </Row>
+) : ( <p className="text-center">No neighbors found on your street.</p>
+)} </Container>
+);
 }
 
 export default NeighborsList;
-
