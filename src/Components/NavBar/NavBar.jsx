@@ -45,7 +45,7 @@ function SimpleNavBar() {
               <Nav.Link><FontAwesomeIcon icon={faStar} className="me-1" />Volunteers</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/neighbors">
-              <Nav.Link><FontAwesomeIcon icon={faUsers} className="me-1" />Neighbors List</Nav.Link>
+              <Nav.Link><FontAwesomeIcon icon={faUsers} className="me-1" /> Neighbors</Nav.Link>  
             </LinkContainer>
           </Nav>
 
