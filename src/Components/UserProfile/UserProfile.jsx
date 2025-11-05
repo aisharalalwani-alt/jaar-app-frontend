@@ -134,27 +134,65 @@ return (
 
     <Card.Body>  
       {editMode ? (  
-        <Form>  
-          {["house_number","street","postal_code","phone","bio"].map(f => (  
-            <Form.Group className="mb-3" key={f}>  
-              <Form.Label>{f.replace("_"," ").toUpperCase()}</Form.Label>  
-              {f==="bio" ? <Form.Control as="textarea" name={f} value={formData[f]} onChange={handleChange} /> : <Form.Control type="text" name={f} value={formData[f]} onChange={handleChange} />}  
-            </Form.Group>  
-          ))}  
-          <Button onClick={handleSaveProfile}>Save</Button>  
-          <Button variant="secondary" className="ms-2" onClick={() => setEditMode(false)}>Cancel</Button>  
-        </Form>  
-      ) : (  
-        <>  
-          <p><strong>House Number:</strong> {profile.house_number || "Not set"}</p>  
-          <p><strong>Street:</strong> {profile.street || "Not set"}</p>  
-          <p><strong>Postal Code:</strong> {profile.postal_code || "Not set"}</p>  
-          <p><strong>Phone:</strong> {profile.phone || "Not set"}</p>  
-          <p><strong>Bio:</strong> {profile.bio || "No bio yet"}</p>  
-        </>  
-      )}  
-    </Card.Body>  
-  </Card>  
+  <Form>  
+    {["house_number", "street", "postal_code", "phone", "bio"].map(f => (  
+      <Form.Group className="mb-3" key={f}>  
+        <Form.Label>{f.replace("_", " ").toUpperCase()}</Form.Label>  
+        
+        {f === "bio" ? (  
+          <Form.Control  
+            as="textarea"  
+            name={f}  
+            value={formData[f]}  
+            onChange={handleChange}  
+          />  
+        ) : (  
+          <Form.Control  
+            type="text"  
+            name={f}  
+            value={formData[f]}  
+            onChange={handleChange}  
+          />  
+        )}  
+
+        {/* 🔹 Hint for Postal Code field only */}
+        {f === "postal_code" && (  
+          <small className="form-text text-muted">  
+            You can find your postal code on{" "}  
+            <a  
+              href="https://maps.splonline.com.sa/"  
+              target="_blank"  
+              rel="noopener noreferrer"  
+              className="text-primary text-decoration-underline"  
+            >  
+              this map  
+            </a>  
+            .  
+          </small>  
+        )}  
+      </Form.Group>  
+    ))}  
+
+    <Button onClick={handleSaveProfile}>Save</Button>  
+    <Button  
+      variant="secondary"  
+      className="ms-2"  
+      onClick={() => setEditMode(false)}  
+    >  
+      Cancel  
+    </Button>  
+  </Form>  
+) : (  
+  <>  
+    <p><strong>House Number:</strong> {profile.house_number || "Not set"}</p>  
+    <p><strong>Street:</strong> {profile.street || "Not set"}</p>  
+    <p><strong>Postal Code:</strong> {profile.postal_code || "Not set"}</p>  
+    <p><strong>Phone:</strong> {profile.phone || "Not set"}</p>  
+    <p><strong>Bio:</strong> {profile.bio || "No bio yet"}</p>  
+  </>  
+)}  
+</Card.Body>
+</Card>
 
   <Accordion defaultActiveKey="">  
     <Accordion.Item eventKey="0">  

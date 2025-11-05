@@ -20,8 +20,8 @@ function SimpleNavBar() {
         {/* Logo */}
         <LinkContainer to="/">
           <Navbar.Brand className="d-flex align-items-center">
-            <FontAwesomeIcon icon={faGem} className="me-2" />
-            MyNeighborhood
+             <img src= "src\assets\Logo.png" alt="Logo"  style={{ width: "30px", height: "30px", marginRight: "10px" }} />
+            Neighbour
           </Navbar.Brand>
         </LinkContainer>
 

@@ -132,3 +132,6 @@ function NeighborDetail() {
 }
 
 export default NeighborDetail;
+  {/*  Reference for Navbar styling
+    https://react-bootstrap.netlify.app/docs/components/navbar/
+    */}
