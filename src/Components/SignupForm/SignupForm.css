@@ -6,7 +6,7 @@ body, html {
 }
 
 .signup-page {
-  background-image: url("https://images.pexels.com/photos/4395882/pexels-photo-4395882.jpeg");
+  background-image: url("https://images.pexels.com/photos/10969375/pexels-photo-10969375.jpeg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -16,7 +16,7 @@ body, html {
 }
 
 .signup-form-container {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.714);
   padding: 30px 25px;
   border-radius: 12px;
   width: 100%;
@@ -27,7 +27,7 @@ body, html {
 
 .signup-form-container h2 {
   margin-bottom: 20px;
-  color: #065f46; /* minty green */
+  color: #060400; 
 }
 
 .signup-form-container input {
@@ -36,13 +36,13 @@ body, html {
   margin: 8px 0;
   border-radius: 8px;
   border: 1px solid #fff;
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(234, 234, 235, 0.9);
   outline: none;
   font-size: 1rem;
 }
 
 .signup-form-container input:focus {
-  border-color: #10b981;
+  border-color: #b6773c;
 }
 
 .signup-form-container button {
@@ -51,7 +51,7 @@ body, html {
   margin-top: 15px;
   border: none;
   border-radius: 8px;
-  background-color: #10b981;
+  background-color: #c48a53;
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -59,17 +59,17 @@ body, html {
 }
 
 .signup-form-container button:hover {
-  background-color: #059669;
+  background-color: #b6773c;
 }
 
 .signup-footer {
   margin-top: 15px;
   font-size: 0.9rem;
-  color: #065f46;
+  color: #000000;
 }
 
 .signup-footer a {
-  color: #10b981;
+  color: #b6773c;
   text-decoration: none;
 }
 

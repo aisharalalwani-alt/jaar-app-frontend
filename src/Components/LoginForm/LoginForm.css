@@ -5,7 +5,7 @@
 }
 
  .login-page {
-  background-image: url("https://images.pexels.com/photos/4395882/pexels-photo-4395882.jpeg");
+  background-image: url(" https://images.pexels.com/photos/10969375/pexels-photo-10969375.jpeg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -40,7 +40,7 @@ box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }    
 
 .login-container input:focus {
-border-color: #10b981; /* mint green focus */
+border-color: #c48a53; /* mint green focus */
 background-color: rgb(255, 255, 255);
 }
 
@@ -48,7 +48,7 @@ background-color: rgb(255, 255, 255);
 .login-container button {
 width: 100%;
 padding: 12px 16px;
-background-color: #10b981; /* mint green */
+background-color: #c48a53; /* mint green */
 color: white;
 border: none;
 border-radius: 8px;
@@ -59,7 +59,7 @@ transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .login-container button:hover {
-background-color: #0d9f6b;
+background-color: #b6773c; 
 transform: translateY(-2px);
 }
 
@@ -71,7 +71,7 @@ color: #333;
 }
 
 .signup-link a {
-color: #10b981;
+color: #b6773c;
 text-decoration: none;
 font-weight: 600;
 }

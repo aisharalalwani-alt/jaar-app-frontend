@@ -1,5 +1,6 @@
  .my-navbar {
-  background-color: #5e7d71; 
+    background: linear-gradient(to left, #c48a53 , #bf8a59);
+  
 }
 
 .my-navbar-container {
