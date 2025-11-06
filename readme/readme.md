@@ -54,9 +54,9 @@ Then open http://localhost:3000 to view the app.
 
 ```
 
-##💎 Code![alt text](image-1.png) I’m Proud Of ✨
+##💎 Code I’m Proud Of ✨
 
-[alt text](image-2.png)
+![alt text](image-2.png)
 
 This section demonstrates dynamic rendering and responsive layout design for the Home Page:
 
