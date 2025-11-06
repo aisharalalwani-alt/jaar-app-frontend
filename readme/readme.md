@@ -47,7 +47,7 @@ npm install
 REACT_APP_API_URL=http://127.0.0.1:8000
 
 # 4️⃣ Run the app locally
-npm start
+npm run dev
 Then open http://localhost:3000 to view the app.
  
 ---
