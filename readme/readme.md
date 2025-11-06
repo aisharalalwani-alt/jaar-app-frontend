@@ -1,6 +1,7 @@
  # 🌆 JAAR App — Frontend
 
- ![alt text](<Logo 4.png>)
+![alt text](<Logo 4.png>)
+  
 
 ## 📘 Project & Repository Description
 The **JAAR App Frontend** is the client-side interface of a community-based platform that connects neighbors through posts, events, and volunteer opportunities.  
@@ -48,14 +49,20 @@ REACT_APP_API_URL=http://127.0.0.1:8000
 # 4️⃣ Run the app locally
 npm start
 Then open http://localhost:3000 to view the app.
+ 
+---
 
-💎 Code I’m Proud Of ✨
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+```
+
+##💎 Code![alt text](image-1.png) I’m Proud Of ✨
+
+[alt text](image-2.png)
+
 This section demonstrates dynamic rendering and responsive layout design for the Home Page:
 
- ---
+ 
+```python
+
  {/* 🔹 Glass cards with links */}
 <div className="d-flex flex-column flex-md-row justify-content-center gap-4 mb-4">
   <Link to="/events" className="glass-card">
@@ -105,20 +112,26 @@ This section demonstrates dynamic rendering and responsive layout design for the
   </p>
 )}
 
----
+```
+
 
 ---
 
-🧊 IceBox Features (Future Enhancements)
-Push notifications for new posts and events
 
-Profile picture upload
+## 🧊 IceBox Features (Future Enhancements)
+* Push notifications for new posts and events
 
-Map integration for nearby events
+* Profile picture upload
 
-Real-time chat between neighbors
+* Map integration for nearby events
 
-Dark mode toggle
- 
+* Real-time chat between neighbors
+
+* Dark mode toggle
+
+ ```
+
+
+
 
 © 2025 JAAR App — Frontend | Developed by Aisha Alalwani
