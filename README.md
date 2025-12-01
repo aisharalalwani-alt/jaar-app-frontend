@@ -1,6 +1,6 @@
 # 🌆 JAAR App — Frontend
 
-![alt text](<Logo 4.png>)
+![alt text](<readme/Logo 4.png>)
   
 
 ## 📘 Project & Repository Description
