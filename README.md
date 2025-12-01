@@ -56,7 +56,7 @@ Then open http://localhost:3000 to view the app.
 
 ##💎 Code I’m Proud Of ✨
 
-![alt text](image-2.png)
+![alt text](readme/image-2.png)
 
 This section demonstrates dynamic rendering and responsive layout design for the Home Page:
 
